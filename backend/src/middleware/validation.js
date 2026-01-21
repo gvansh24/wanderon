@@ -1,6 +1,5 @@
 import { body, validationResult } from 'express-validator';
 
-// Registration validation
 export const validateRegister = [
   body('username')
     .trim()
@@ -22,7 +21,6 @@ export const validateRegister = [
     .withMessage('Password must contain at least one uppercase letter, one lowercase letter, and one number'),
 ];
 
-// Login validation
 export const validateLogin = [
   body('email')
     .trim()
@@ -37,7 +35,6 @@ export const validateLogin = [
     .withMessage('Password is required'),
 ];
 
-// Validation result handler
 export const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

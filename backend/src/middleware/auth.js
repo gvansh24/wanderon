@@ -3,7 +3,6 @@ import User from '../models/User.js';
 
 export const authenticate = async (req, res, next) => {
   try {
-    // Get token from cookie
     const token = req.cookies.token;
 
     if (!token) {
@@ -16,7 +15,6 @@ export const authenticate = async (req, res, next) => {
       });
     }
 
-    // Verify token
     const decoded = verifyToken(token);
 
     if (!decoded) {
@@ -29,7 +27,6 @@ export const authenticate = async (req, res, next) => {
       });
     }
 
-    // Get user from database
     const user = await User.findById(decoded.userId).select('-password');
 
     if (!user) {
@@ -42,7 +39,6 @@ export const authenticate = async (req, res, next) => {
       });
     }
 
-    // Attach user to request
     req.user = user;
     next();
   } catch (error) {

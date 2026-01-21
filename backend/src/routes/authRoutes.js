@@ -6,10 +6,9 @@ import rateLimit from 'express-rate-limit';
 
 const router = express.Router();
 
-// Rate limiting for auth endpoints
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 requests per window
+  windowMs: 15 * 60 * 1000,
+  max: 5,
   message: {
     success: false,
     error: {
@@ -20,8 +19,8 @@ const authLimiter = rateLimit({
 });
 
 const registerLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 3, // 3 registrations per hour
+  windowMs: 60 * 60 * 1000,
+  max: 3,
   message: {
     success: false,
     error: {
@@ -31,11 +30,9 @@ const registerLimiter = rateLimit({
   },
 });
 
-// Public routes
 router.post('/register', registerLimiter, validateRegister, handleValidationErrors, register);
 router.post('/login', authLimiter, validateLogin, handleValidationErrors, login);
 
-// Protected routes
 router.post('/logout', authenticate, logout);
 router.get('/verify', authenticate, verifyToken);
 router.get('/me', authenticate, getCurrentUser);

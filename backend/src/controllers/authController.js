@@ -1,12 +1,10 @@
 import User from '../models/User.js';
 import { generateToken } from '../config/jwt.js';
 
-// Register user
 export const register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
 
-    // Check if user already exists
     const existingUser = await User.findOne({
       $or: [{ email }, { username }],
     });
@@ -23,7 +21,6 @@ export const register = async (req, res, next) => {
       });
     }
 
-    // Create new user
     const user = await User.create({
       username,
       email,
@@ -46,12 +43,10 @@ export const register = async (req, res, next) => {
   }
 };
 
-// Login user
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Find user by email and include password
     const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
@@ -64,7 +59,6 @@ export const login = async (req, res, next) => {
       });
     }
 
-    // Check password
     const isPasswordValid = await user.comparePassword(password);
 
     if (!isPasswordValid) {
@@ -77,15 +71,13 @@ export const login = async (req, res, next) => {
       });
     }
 
-    // Generate JWT token
     const token = generateToken(user._id, user.email);
 
-    // Set HTTP-only cookie
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.json({
@@ -104,7 +96,6 @@ export const login = async (req, res, next) => {
   }
 };
 
-// Logout user
 export const logout = async (req, res) => {
   res.clearCookie('token');
   res.json({
@@ -115,7 +106,6 @@ export const logout = async (req, res) => {
   });
 };
 
-// Get current user
 export const getCurrentUser = async (req, res) => {
   res.json({
     success: true,
@@ -130,7 +120,6 @@ export const getCurrentUser = async (req, res) => {
   });
 };
 
-// Verify token
 export const verifyToken = async (req, res) => {
   res.json({
     success: true,
