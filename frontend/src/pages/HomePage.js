@@ -140,19 +140,21 @@ const HomePage = () => {
                 ) : (
                   <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       size="large"
                       onClick={() => navigate('/register')}
                       sx={{ 
-                        bgcolor: 'white',
-                        color: theme.palette.primary.main,
+                        borderColor: 'white',
+                        color: 'white',
                         px: 4,
                         py: 1.5,
                         fontSize: '1.1rem',
+                        borderWidth: 2,
                         '&:hover': {
-                          bgcolor: alpha(theme.palette.common.white, 0.9),
+                          borderColor: 'white',
+                          bgcolor: alpha(theme.palette.common.white, 0.1),
+                          borderWidth: 2,
                           transform: 'translateY(-3px)',
-                          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
                         },
                       }}
                     >
