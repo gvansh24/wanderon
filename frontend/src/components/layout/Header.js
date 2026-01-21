@@ -194,15 +194,12 @@ const Header = () => {
                   Sign In
                 </Button>
                 <Button
-                  variant="contained"
+                  color="inherit"
                   onClick={() => navigate('/register')}
                   sx={{
-                    bgcolor: 'white',
-                    color: theme.palette.primary.main,
+                    bgcolor: alpha(theme.palette.common.white, 0.1),
                     '&:hover': {
-                      bgcolor: alpha(theme.palette.common.white, 0.9),
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                      bgcolor: alpha(theme.palette.common.white, 0.2),
                     },
                   }}
                 >
@@ -278,13 +275,13 @@ const Header = () => {
               </Button>
               <Button
                 fullWidth
-                variant="contained"
+                color="inherit"
                 onClick={() => { navigate('/register'); handleMenuClose(); }}
                 sx={{
-                  bgcolor: 'white',
-                  color: theme.palette.primary.main,
+                  justifyContent: 'flex-start',
+                  bgcolor: alpha(theme.palette.common.white, 0.1),
                   '&:hover': {
-                    bgcolor: alpha(theme.palette.common.white, 0.9),
+                    bgcolor: alpha(theme.palette.common.white, 0.2),
                   },
                 }}
               >
